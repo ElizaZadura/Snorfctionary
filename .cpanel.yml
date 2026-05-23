@@ -2,8 +2,10 @@ deployment:
   tasks:
     - export DEPLOYPATH=/home/qpxdy/snorfctionary.com/public_html/
     - /bin/cp -f index.html $DEPLOYPATH
+    - /bin/cp -f index.js $DEPLOYPATH
+    - /bin/cp -f style.css $DEPLOYPATH
+    
     - /bin/cp -R -f docs $DEPLOYPATH
     - /bin/cp -R -f media $DEPLOYPATH
-    - /bin/cp -f style.css $DEPLOYPATH
     - /bin/cp -R -f assets $DEPLOYPATH
-    - /bin/cp -f index.js $DEPLOYPATH
+    
