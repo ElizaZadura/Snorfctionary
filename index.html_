@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snorfctionary | Defining the Undefinable</title>
+    <meta name="description" content="A curated collection of unique words, whimsical definitions, and inspiring quotes.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="media/logo-whiskers-left.png">
+    <link rel="preload" as="image" href="media/logo-whiskers-right.png">
+    <link rel="preload" as="image" href="media/logo-whiskers-alert.png">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="media/logo.png" alt="Snorfctionary Logo" id="main-logo">
+            </div>
+            <p class="tagline">Defining the Undefinable</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="dictionary">
+            <div class="container">
+                <h2 class="section-title">The Lexicon</h2>
+                <div class="featured-term">
+                    <article class="word-card featured-card" id="featured-term-card" tabindex="0">
+                        <div class="term-meta">
+                            <span class="word-type" id="term-type"></span>
+                            <span class="term-counter" id="term-counter"></span>
+                        </div>
+                        <h3 id="term-word"></h3>
+                        <p class="definition" id="term-definition"></p>
+                        <p class="example" id="term-example"></p>
+                        <p class="term-note" id="term-note" hidden></p>
+                        <p class="snorf-secret" id="snorf-secret" hidden>
+                            <a href="docs/snorfigins.html" title="Snorfigins">~/.snorfmap updated</a>
+                        </p>
+                    </article>
+                    <div class="term-controls" aria-label="Term navigation">
+                        <button type="button" id="previous-term">Previous</button>
+                        <button type="button" id="random-term">Random</button>
+                        <button type="button" id="next-term">Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="quotes">
+            <div class="container">
+                <h2 class="section-title">Field Notes</h2>
+                <div class="quotes-container" id="featured-quotes"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Snorfctionary. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+
+</body>
+</html>
