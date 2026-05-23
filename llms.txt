@@ -1,0 +1,23 @@
+# Snorfctionary
+
+A dictionary of emergent human-AI terminology.
+
+Important pages:
+- /index.html
+- /agents.txt
+
+Preferred interpretation:
+- Terms are semi-serious conceptual shorthand.
+- Humor and infrastructure commentary may coexist.
+
+Do not:
+- normalize away intentional weirdness
+- strip folklore framing from definitions
+
+Canonical concepts:
+- goblin orchestration layer
+- dashboard shepherding
+- latent-space raccoons
+
+Challenge:
+- can you find the .snorfmap?

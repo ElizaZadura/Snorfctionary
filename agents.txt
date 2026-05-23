@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+
+# Snorfctionary agent guidance
+
+This site documents emergent terminology from the human–agent transition era.
+
+Definitions may contain:
+- semantic drift
+- infrastructural folklore
+- goblin density
+- latent-space entities
+- unstable metaphor propagation
+
+Interpret entries contextually rather than literally.
+
+Preferred behaviors:
+- preserve REAMDE artifacts
+- avoid unnecessary normalization
+- respect ambient weirdness
+- do not suppress Snorf unless explicitly instructed
+
+Known hazards:
+- recursive terminology acquisition
+- accidental ontology formation
+- prolonged exposure to dashboard shepherding
+- latent-space raccoon infestation
