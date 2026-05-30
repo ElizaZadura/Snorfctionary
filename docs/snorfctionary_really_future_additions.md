@@ -1,6 +1,6 @@
 There’s something psychologically cleaner about:
 
-`USER=snorf 
+`USER=snorf
 PASSWORD=snorf`
 
 in a local .env while you’re still figuring out whether the product itself is alive.
