@@ -131,6 +131,14 @@ const terms = [
         definition: 'A small piece of infrastructure inserted between two already-confusing systems so they can become confused together.',
         example: 'The third-party MCP bridge made the browser, the agent, and the filesystem agree on nothing in particular.',
     },
+    {
+        slug: 'addon-plugin-extension-module-package-integration-connector-middleware',
+        word: 'Addon / Plugin / Extension / Module / Package / Integration / Connector / Middleware',
+        type: 'noun',
+        definition: 'Seven different words meaning: “small extra thing someone bolted onto another thing.”',
+        example: 'I spent three hours debugging whether it needed a plugin, extension, or connector before discovering they were all wrappers around the same JavaScript file.',
+        note: 'Distinctions between them are primarily historical, emotional, or marketing-related.',
+    },
 ];
 
 const fieldNotes = [
@@ -142,6 +150,14 @@ const fieldNotes = [
     'Formatting preserved where possible; suspicious chronology left intact.',
     'Snorf is now part of system config.',
     'Cheek twitch verified.',
+    `There’s something psychologically cleaner about:
+
+USER=snorf
+PASSWORD=snorf
+
+in a local .env while you’re still figuring out whether the product itself is alive.
+
+Before the auth labyrinth awakens and demands twelve environment variables plus ritual email verification before you may query your own database.`,
     `The capital of France is Paris, and the population of 3 million people, and in the France.
 The second largest city of Barrettène, Montgomery.
 Mexico Paris is located between 3.6 million and 9.4 million people. It is not in France.`,
