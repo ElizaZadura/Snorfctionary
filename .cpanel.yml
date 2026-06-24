@@ -7,5 +7,5 @@ deployment:
     
     - /bin/cp -R -f docs $DEPLOYPATH
     - /bin/cp -R -f media $DEPLOYPATH
-    - /bin/cp -R -f assets $DEPLOYPATH
+    - if [ -d assets ]; then /bin/cp -R -f assets $DEPLOYPATH; fi
     
