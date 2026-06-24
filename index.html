@@ -12,6 +12,7 @@
     <link rel="preload" as="image" href="media/logo-whiskers-left.png">
     <link rel="preload" as="image" href="media/logo-whiskers-right.png">
     <link rel="preload" as="image" href="media/logo-whiskers-alert.png">
+    <link rel="icon" href="media/logo.png">
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
@@ -19,17 +20,47 @@
     <header>
         <div class="container">
             <div class="logo-container">
-                <img src="media/logo.png" alt="Snorfctionary Logo" id="main-logo">
+                <img src="media/logo.png" alt="Snorfctionary Logo" id="main-logo" tabindex="0" role="button" aria-label="Snorfctionary logo. Click five times for suspicious cartography.">
             </div>
             <p class="tagline">Defining the Undefinable</p>
+            <p class="snorf-secret header-secret" id="snorfigins-link" hidden>
+                <a href="docs/snorfigins.html" title="Snorfigins">~/.snorfmap updated</a>
+            </p>
         </div>
     </header>
 
     <main>
         <section id="dictionary">
             <div class="container">
-                <h2 class="section-title">The Lexicon</h2>
-                <div class="featured-term">
+                <div class="snorf-stage">
+                    <div class="context-card context-index" id="context-index-card">
+                        <span class="context-tab context-tab-teal"></span>
+                        <strong>Oddly Sorted</strong>
+                        <div class="case-list" id="case-list"></div>
+                    </div>
+
+                    <button type="button" class="context-card context-field-note" id="field-note-card">
+                        <span class="context-tab context-tab-gold"></span>
+                        <strong>Field Note</strong>
+                        <span id="context-field-note"></span>
+                        <em>Reroll note</em>
+                    </button>
+
+                    <button type="button" class="context-card context-artifact" id="artifact-card">
+                        <span class="context-tab context-tab-rust"></span>
+                        <strong>Artifact Slot</strong>
+                        <span class="artifact-preview">?</span>
+                        <span>Future image or suspicious visual evidence.</span>
+                    </button>
+
+                    <button type="button" class="context-card context-nearby" id="nearby-card">
+                        <span class="context-tab context-tab-teal"></span>
+                        <strong>Nearby Case</strong>
+                        <span id="nearby-term"></span>
+                        <em id="nearby-type"></em>
+                    </button>
+
+                    <div class="featured-term">
                     <article class="word-card featured-card" id="featured-term-card" tabindex="0">
                         <div class="term-meta">
                             <span class="word-type" id="term-type"></span>
@@ -39,23 +70,14 @@
                         <p class="definition" id="term-definition"></p>
                         <p class="example" id="term-example"></p>
                         <p class="term-note" id="term-note" hidden></p>
-                        <p class="snorf-secret" id="snorf-secret" hidden>
-                            <a href="docs/snorfigins.html" title="Snorfigins">~/.snorfmap updated</a>
-                        </p>
                     </article>
                     <div class="term-controls" aria-label="Term navigation">
                         <button type="button" id="previous-term">Previous</button>
                         <button type="button" id="random-term">Random</button>
                         <button type="button" id="next-term">Next</button>
                     </div>
+                    </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="quotes">
-            <div class="container">
-                <h2 class="section-title">Field Notes</h2>
-                <div class="quotes-container" id="featured-quotes"></div>
             </div>
         </section>
     </main>

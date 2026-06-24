@@ -1,1 +1,4 @@
 .superpowers/
+docs/mockups/
+tests/
+.preview-server-pid

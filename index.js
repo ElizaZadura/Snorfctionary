@@ -172,11 +172,18 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
     const termExample = document.getElementById('term-example');
     const termNote = document.getElementById('term-note');
     const termCounter = document.getElementById('term-counter');
-    const secret = document.getElementById('snorf-secret');
+    const secret = document.getElementById('snorfigins-link');
+    const snorfiginsClickTarget = logo;
     const prevButton = document.getElementById('previous-term');
     const randomButton = document.getElementById('random-term');
     const nextButton = document.getElementById('next-term');
-    const quotesContainer = document.getElementById('featured-quotes');
+    const caseList = document.getElementById('case-list');
+    const fieldNoteCard = document.getElementById('field-note-card');
+    const contextFieldNote = document.getElementById('context-field-note');
+    const artifactCard = document.getElementById('artifact-card');
+    const nearbyCard = document.getElementById('nearby-card');
+    const nearbyTerm = document.getElementById('nearby-term');
+    const nearbyType = document.getElementById('nearby-type');
     const originalLogo = logo.getAttribute('src');
     const frames = [
         'media/logo-whiskers-left.png',
@@ -187,9 +194,9 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
         originalLogo,
     ];
     let activeIndex = 0;
-    let snorfCount = 0;
+    let logoClickCount = 0;
     let unlocked = false;
-    let visibleNoteIndexes = [];
+    let visibleNoteIndex = 0;
 
     const getIndexFromHash = () => {
         const slug = window.location.hash.replace('#', '').trim().toLowerCase();
@@ -205,11 +212,25 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
         history.replaceState(null, '', `#${term.slug}`);
     };
 
-    const resetSecretState = () => {
-        snorfCount = 0;
-        unlocked = false;
-        secret.hidden = true;
-        featuredCard.classList.remove('snorf-card--awake');
+    const getNearbyIndex = () => (activeIndex + 1) % terms.length;
+
+    const renderContextCards = () => {
+        const startIndex = Math.max(0, Math.min(activeIndex - 1, terms.length - 3));
+        const visibleTerms = terms.slice(startIndex, startIndex + 3);
+        const nearby = terms[getNearbyIndex()];
+
+        caseList.innerHTML = visibleTerms
+            .map((term) => {
+                const index = terms.findIndex((candidate) => candidate.slug === term.slug);
+                const activeClass = index === activeIndex ? ' class="is-active"' : '';
+
+                return `<button type="button" data-term-index="${index}"${activeClass}>${term.word}</button>`;
+            })
+            .join('');
+
+        contextFieldNote.textContent = `“${fieldNotes[visibleNoteIndex]}”`;
+        nearbyTerm.textContent = nearby.word;
+        nearbyType.textContent = nearby.type;
     };
 
     const showTerm = (index, shouldUpdateHash = true) => {
@@ -226,15 +247,13 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
         termCounter.textContent = `${activeIndex + 1} / ${terms.length}`;
         featuredCard.classList.toggle('snorf-card', isSnorf);
         featuredCard.setAttribute('aria-label', `${term.word}. ${term.definition}`);
-        secret.hidden = !isSnorf || !unlocked;
-
-        if (!isSnorf) {
-            resetSecretState();
-        }
+        featuredCard.classList.toggle('snorf-card--awake', isSnorf && unlocked);
 
         if (shouldUpdateHash) {
             updateHash(term);
         }
+
+        renderContextCards();
     };
 
     frames.forEach((src) => {
@@ -255,10 +274,6 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
     };
 
     const unlockSnorfigins = () => {
-        if (terms[activeIndex].slug !== 'snorf') {
-            return;
-        }
-
         if (unlocked) {
             wiggleWhiskers();
             return;
@@ -266,18 +281,14 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
 
         unlocked = true;
         secret.hidden = false;
-        featuredCard.classList.add('snorf-card--awake');
+        featuredCard.classList.toggle('snorf-card--awake', terms[activeIndex].slug === 'snorf');
         wiggleWhiskers();
     };
 
     const nudgeSnorf = () => {
-        if (terms[activeIndex].slug !== 'snorf') {
-            return;
-        }
+        logoClickCount += 1;
 
-        snorfCount += 1;
-
-        if (snorfCount >= 5) {
+        if (logoClickCount >= 5) {
             unlockSnorfigins();
         }
     };
@@ -296,25 +307,9 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
         return nextIndex;
     };
 
-    const renderQuotes = () => {
-        quotesContainer.innerHTML = visibleNoteIndexes
-            .map((noteIndex, slotIndex) => {
-                const note = fieldNotes[noteIndex];
-                const longClass = note.length > 150 ? ' field-note--long' : '';
-
-                return `
-                <blockquote class="field-note${longClass}" data-note-slot="${slotIndex}" tabindex="0" title="Swap this field note">
-                    <p>“${note}”</p>
-                </blockquote>
-            `;
-            })
-            .join('');
-    };
-
-    const rerollNote = (slotIndex) => {
-        const blockedIndexes = visibleNoteIndexes.filter((_noteIndex, index) => index !== slotIndex);
-        visibleNoteIndexes[slotIndex] = getRandomNoteIndex(blockedIndexes);
-        renderQuotes();
+    const rerollNote = () => {
+        visibleNoteIndex = getRandomNoteIndex([visibleNoteIndex]);
+        renderContextCards();
     };
 
     prevButton.addEventListener('click', () => showTerm(activeIndex - 1));
@@ -333,7 +328,7 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
         showTerm(nextIndex);
     });
 
-    featuredCard.addEventListener('click', (event) => {
+    snorfiginsClickTarget.addEventListener('click', (event) => {
         if (event.target.closest('a') || event.target.closest('button')) {
             return;
         }
@@ -341,7 +336,7 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
         nudgeSnorf();
     });
 
-    featuredCard.addEventListener('keydown', (event) => {
+    snorfiginsClickTarget.addEventListener('keydown', (event) => {
         if (event.key !== 'Enter' && event.key !== ' ') {
             return;
         }
@@ -350,34 +345,22 @@ Mexico Paris is located between 3.6 million and 9.4 million people. It is not in
         nudgeSnorf();
     });
 
+    caseList.addEventListener('click', (event) => {
+        const button = event.target.closest('button[data-term-index]');
+
+        if (!button) {
+            return;
+        }
+
+        showTerm(Number(button.dataset.termIndex));
+    });
+
+    fieldNoteCard.addEventListener('click', rerollNote);
+    artifactCard.addEventListener('click', () => wiggleWhiskers());
+    nearbyCard.addEventListener('click', () => showTerm(getNearbyIndex()));
+
     window.addEventListener('hashchange', () => showTerm(getIndexFromHash(), false));
 
-    visibleNoteIndexes = [0, 1, 2].slice(0, fieldNotes.length);
-    renderQuotes();
+    visibleNoteIndex = getRandomNoteIndex();
     showTerm(getIndexFromHash(), false);
-
-    quotesContainer.addEventListener('click', (event) => {
-        const note = event.target.closest('.field-note');
-
-        if (!note) {
-            return;
-        }
-
-        rerollNote(Number(note.dataset.noteSlot));
-    });
-
-    quotesContainer.addEventListener('keydown', (event) => {
-        if (event.key !== 'Enter' && event.key !== ' ') {
-            return;
-        }
-
-        const note = event.target.closest('.field-note');
-
-        if (!note) {
-            return;
-        }
-
-        event.preventDefault();
-        rerollNote(Number(note.dataset.noteSlot));
-    });
 })();
